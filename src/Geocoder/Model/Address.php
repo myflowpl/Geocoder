@@ -69,6 +69,15 @@ final class Address
      * @var string
      */
     private $timezone;
+    /**
+     * @var string
+     */
+    private $providerResponse;
+
+    /**
+     * @var string
+     */
+    private $providerName;
 
     /**
      * @param string $streetNumber
@@ -88,7 +97,9 @@ final class Address
         County $county           = null,
         Region $region           = null,
         Country $country         = null,
-        $timezone                = null
+        $timezone                = null,
+        $providerName            = null,
+        $providerResponse        = null
     ) {
         $this->coordinates  = $coordinates;
         $this->bounds       = $bounds;
@@ -101,8 +112,41 @@ final class Address
         $this->region       = $region;
         $this->country      = $country;
         $this->timezone     = $timezone;
+        $this->providerName     = $providerName;
+        $this->providerResponse     = $providerResponse;
     }
 
+    /**
+     * @return string
+     */
+    public function getProviderName()
+    {
+        return $this->providerName;
+    }
+
+    /**
+     * @param string $providerName
+     */
+    public function setProviderName($providerName)
+    {
+        $this->providerName = $providerName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderResponse()
+    {
+        return $this->providerResponse;
+    }
+
+    /**
+     * @param string $providerResponse
+     */
+    public function setProviderResponse($providerResponse)
+    {
+        $this->providerResponse = $providerResponse;
+    }
     /**
      * Returns an array of coordinates (latitude, longitude).
      *
@@ -295,6 +339,8 @@ final class Address
             'country'      => $this->country->getName(),
             'countryCode'  => $this->country->getCode(),
             'timezone'     => $this->timezone,
+            'providerName'  => $this->providerName,
+            'providerResponse'  => $this->providerResponse,
         );
     }
 }

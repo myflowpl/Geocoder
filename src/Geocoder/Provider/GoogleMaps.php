@@ -170,7 +170,8 @@ class GoogleMaps extends AbstractHttpProvider implements LocaleAwareProvider
         $results = [];
         foreach ($json->results as $result) {
             $resultSet = $this->getDefaults();
-
+            $resultSet['providerName'] = 'GoogleMaps';
+            $resultSet['providerResponse'] = (array)$result;
             // update address components
             foreach ($result->address_components as $component) {
                 foreach ($component->types as $type) {

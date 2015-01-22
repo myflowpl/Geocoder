@@ -48,7 +48,9 @@ final class AddressFactory
                     $this->readStringValue($result, 'country'),
                     $this->upperize(\igorw\get_in($result, ['countryCode']))
                 ),
-                \igorw\get_in($result, ['timezone'])
+                \igorw\get_in($result, ['timezone']),
+                $this->readStringValue($result, 'providerName'),
+                $this->readArrayValue($result, 'providerResponse')
             );
         }
 
@@ -73,6 +75,22 @@ final class AddressFactory
     private function readStringValue(array $data, $key)
     {
         return $this->valueOrNull(\igorw\get_in($data, [ $key ]));
+    }
+
+    /**
+     * @param  array  $data
+     * @param  string $key
+     * @return string
+     */
+    private function readArrayValue(array $data, $key)
+    {
+        if(isset($data[$key]) and is_array($data[$key])) {
+            return $data[$key];
+        }
+        if(isset($data[$key]) and is_object($data[$key])) {
+            return (array)$data[$key];
+        }
+        return null;
     }
 
     /**
